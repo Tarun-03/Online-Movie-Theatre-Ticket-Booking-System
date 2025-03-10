@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your City</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(Images/login-bg.webp) center/cover no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .navbar {
+    background-color: gold;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    gap: 50px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.profile-btn {
+    color: gold;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background: black;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .profile-btn:hover {
+    background: black;
+    color: gold;
+}
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            color: gold;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 450px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .search-bar {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: 1px solid gold;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .city-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .city-buttons button {
+            flex: 1 1 30%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: gold;
+            color: black;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .city-buttons button:hover {
+            background-color: #0056b3;
+        }
+        .all-cities {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar"> 
+        <div class="logo">🎬 Movie Ticket Booking</div>
+        <div class="nav-links">
+            <a href="movieSelect.html">Home</a>
+            <a href="movieSelect.html">Movies</a>
+            <a href="theatres.html">Theatres</a>
+            <a href="profile.html">Orders</a>
+        </div>
+        <!-- <button class="profile-btn" id="profileBtn">👤 Profile</button> -->
+    </div>
+    
+    <div class="container">
+        <h2>Select Your City</h2>
+        <input type="text" class="search-bar" id="citySearch" placeholder="Search for a city..." onkeyup="filterCities()">
+        <div class="top-cities">
+            <h3>Top Cities</h3>
+            <div class="city-buttons">
+                <button onclick="selectCity('Bengaluru')">Bengaluru</button>
+                <button onclick="selectCity('Chennai')">Chennai</button>
+                <button onclick="selectCity('Delhi/NCR')">Delhi/NCR</button>
+                <button onclick="selectCity('Hyderabad')">Hyderabad</button>
+                <button onclick="selectCity('Mumbai')">Mumbai</button>
+                <button onclick="selectCity('Pune')">Pune</button>
+            </div>
+        </div>
+        <div class="all-cities">
+            <h3>All Cities</h3>
+            <div class="city-buttons">
+                <button onclick="selectCity('Agra')">Agra</button>
+                <button onclick="selectCity('Ahmedabad')">Ahmedabad</button>
+                <button onclick="selectCity('Bhopal')">Bhopal</button>
+                <button onclick="selectCity('Chandigarh')">Chandigarh</button>
+                <button onclick="selectCity('Goa')">Goa</button>
+                <button onclick="selectCity('Indore')">Indore</button>
+                <button onclick="selectCity('Jaipur')">Jaipur</button>
+                <button onclick="selectCity('Lucknow')">Lucknow</button>
+                <button onclick="selectCity('Nagpur')">Nagpur</button>
+                <button onclick="selectCity('Surat')">Surat</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        
+        function selectCity(city) {
+            localStorage.setItem("selectedCity", city);
+            window.location.href = "movieSelect.html";
+        }
+        
+        function filterCities() {
+            let input = document.getElementById("citySearch").value.toLowerCase();
+            let buttons = document.querySelectorAll(".all-cities .city-buttons button");
+            
+            buttons.forEach(button => {
+                button.style.display = button.innerText.toLowerCase().includes(input) ? "inline-block" : "none";
+            });
+        }
+    </script>
+</body>
+</html>

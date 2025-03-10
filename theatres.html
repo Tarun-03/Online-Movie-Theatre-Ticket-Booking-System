@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theatres</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(Images/main-bg.webp) no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+        }
+        .navbar {
+            background-color: gold;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            background: black;
+            color: gold;
+        }
+        .header {
+            text-align: center;
+            background: gold;
+            color: black;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 80px;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .filters select, .filters input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.5);
+            color: gold;
+        }
+        .theatre-list {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .theatre {
+            padding: 15px;
+            border-bottom: 1px solid gold;
+            color: gold;
+        }
+        .showtimes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .showtime, .get-location {
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .showtime {
+            background: #4CAF50;
+        }
+        .showtime:hover {
+            background: #45a049;
+        }
+        .get-location {
+            display: inline-block;
+            margin-top: 15px;
+            background: #007BFF;
+        }
+        .get-location:hover {
+            background: #0056b3;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let dateInput = document.getElementById("date");
+            let today = new Date();
+            
+            // Set minimum selectable date to tomorrow
+            today.setDate(today.getDate() + 1);
+            let minDate = today.toISOString().split("T")[0];
+
+            // Set maximum selectable date to a week from tomorrow
+            let maxDateObj = new Date(today);
+            maxDateObj.setDate(today.getDate() + 6);
+            let maxDate = maxDateObj.toISOString().split("T")[0];
+
+            dateInput.min = minDate;
+            dateInput.max = maxDate;
+
+            // Event listener to handle showtime clicks
+            document.querySelectorAll(".showtime").forEach(button => {
+                button.addEventListener("click", function(event) {
+                    let selectedDate = dateInput.value;
+                    
+                    if (!selectedDate) {
+                        alert("Please select a date before proceeding to booking.");
+                        event.preventDefault(); // Prevent navigation
+                    } else {
+                        sessionStorage.setItem("selectedDate", selectedDate);
+                        let bookingUrl = "booking.html?date=" + selectedDate;
+                        window.location.href = bookingUrl;
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar"> 
+        <div class="logo">🎬 <span>Movie Ticket Booking</span></div>
+        <div class="nav-links">
+            <a href="movieSelect.html">Home</a>
+            <a href="movieSelect.html">Movies</a>
+            <a href="theatres.html">Theatres</a>
+            <a href="profile.html">Orders</a>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Theatres</h1>
+    </div>
+
+    <div class="filters">
+        <input type="date" id="date">
+        <select id="format">
+            <option>All Formats</option>
+            <option>IMAX</option>
+            <option>4DX</option>
+            <option>Dolby Atmos</option>
+        </select>
+        <select id="price">
+            <option>All Prices</option>
+            <option>Low to High</option>
+            <option>High to Low</option>
+        </select>
+    </div>
+
+    <div class="theatre-list">
+        <div class="theatre">
+            <h2>Kamala Cinemas 4K RGB Laser, Vadapalani, Chennai</h2>
+            <div class="showtimes">
+                <a href="booking.html" class="showtime">01:05 PM</a>
+                <a href="booking.html" class="showtime">04:15 PM</a>
+                <a href="booking.html" class="showtime">07:30 PM</a>
+                <a href="booking.html" class="showtime">10:55 PM</a>
+            </div>
+            <a href="https://maps.app.goo.gl/DxGrEfXG4GKNrcYG7" target="_blank" class="get-location">📍 Get Location</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(Images/main-bg.webp);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0,0,0,0.5);
+            width: 30%;
+            max-width: 600px;
+            margin: auto;
+            padding: 30px;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: gold;
+        }
+        p {
+            font-size: 16px;
+            text-align: left;
+        }
+        .home-button {
+            width: 100%;
+            padding: 12px;
+            background: gold;
+            border: none;
+            color: black;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .home-button:hover {
+            background: black;
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎉 Payment Successful! 🎉</h2>
+        <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+        <p><strong>Movie:</strong> <span id="movieName">Loading...</span></p>
+        <p><strong>Date:</strong> <span id="selectedDate">Loading...</span></p>
+        <p><strong>Time:</strong> <span id="showTime">Loading...</span></p>
+        <p><strong>Theatre:</strong> <span id="theatreName">Loading...</span></p>
+        <p><strong>Seats:</strong> <span id="selectedSeats">Loading...</span></p>
+        <p><strong>Total Price:</strong> ₹<span id="totalPrice">0</span></p>
+
+        <button class="home-button" onclick="goToHome()">Go to Home</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("userName").textContent = sessionStorage.getItem("userName") || "User";
+            document.getElementById("movieName").textContent = sessionStorage.getItem("movieName") || "Dragon";
+            document.getElementById("selectedDate").textContent = sessionStorage.getItem("selectedDate") || "1-Mar-2025";
+            document.getElementById("showTime").textContent = sessionStorage.getItem("showTime") || "3:05 PM";
+            document.getElementById("theatreName").textContent = sessionStorage.getItem("theatreName") || "Sangam Cenemas";
+            document.getElementById("selectedSeats").textContent = JSON.parse(sessionStorage.getItem("selectedSeats"))?.join(", ") || "A1, A2";
+            document.getElementById("totalPrice").textContent = sessionStorage.getItem("totalPrice") || "400";
+        });
+
+        function goToHome() {
+            sessionStorage.clear(); // Clear session storage after confirmation
+            window.location.href = "movieSelect.html"; // Redirect to home page
+        }
+    </script>
+</body>
+</html>

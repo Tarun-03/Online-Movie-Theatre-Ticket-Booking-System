@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            background: url(Images/main-bg.webp) no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .payment-container {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: gold;
+            margin-bottom: 15px;
+        }
+        .details {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .payment-methods {
+            text-align: left;
+        }
+        .payment-methods label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .payment-methods input {
+            margin-right: 10px;
+        }
+        .extra-details {
+            color: gold;
+            display: none;
+            text-align: left;
+            margin-top: 15px;
+        }
+        .extra-details label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .extra-details input {
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
+            color: white;
+        }
+        .extra-details input:focus{
+            border: 1px solid gold;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .pay-button, .cancel-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .pay-button {
+            background: gold;
+            color: black;
+        }
+        .pay-button:hover {
+            background: black;
+            color: gold;
+        }
+        .cancel-button {
+            background: #333;
+        }
+        .cancel-button:hover {
+            background: black;
+        }
+        .success-message {
+            display: none;
+            color: gold;
+            font-size: medium;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Payment</h2>
+        <div class="details">
+            <p><strong>Seats:</strong> <span id="selectedSeats">Loading...</span></p>
+            <p><strong>Total Price:</strong> ₹<span id="totalPrice">0</span></p>
+        </div>
+
+        <div class="payment-methods">
+            <label>Choose Payment Method:</label>
+            <input type="radio" name="paymentMethod" value="card" id="cardOption"> Credit/Debit Card<br>
+            <input type="radio" name="paymentMethod" value="upi" id="upiOption"> UPI<br>
+            <input type="radio" name="paymentMethod" value="netbanking" id="netbankingOption"> Net Banking
+        </div>
+
+        <!-- Card Details -->
+        <div class="extra-details" id="cardDetails">
+            <label>Card Number</label>
+            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+            <label>Expiry Date</label>
+            <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+            <label>CVV</label>
+            <input type="password" id="cvv" placeholder="123" maxlength="3">
+        </div>
+
+        <!-- UPI Details -->
+        <div class="extra-details" id="upiDetails">
+            <label>UPI ID</label>
+            <input type="text" id="upiId" placeholder="example@upi">
+        </div>
+
+        <!-- Net Banking Details -->
+        <div class="extra-details" id="netbankingDetails">
+            <label>Bank Account Number</label>
+            <input type="text" id="bankAccNumber" placeholder="1234567890123456">
+        </div>
+
+        <div class="buttons">
+            <button class="pay-button" id="payNow">Pay Now</button>
+            <button class="cancel-button" id="cancelPayment">Cancel</button>
+        </div>
+
+        <p class="success-message" id="successMessage">Payment Successful! 🎉</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch stored booking details
+            let selectedSeats = JSON.parse(sessionStorage.getItem("selectedSeats")) || [];
+            let totalPrice = sessionStorage.getItem("totalPrice") || 0;
+            
+            document.getElementById("selectedSeats").textContent = selectedSeats.join(", ") || "None";
+            document.getElementById("totalPrice").textContent = totalPrice;
+
+            let cardDetails = document.getElementById("cardDetails");
+            let upiDetails = document.getElementById("upiDetails");
+            let netbankingDetails = document.getElementById("netbankingDetails");
+
+            // Show relevant input fields based on selected payment method
+            document.querySelectorAll("input[name='paymentMethod']").forEach(input => {
+                input.addEventListener("change", function() {
+                    cardDetails.style.display = this.value === "card" ? "block" : "none";
+                    upiDetails.style.display = this.value === "upi" ? "block" : "none";
+                    netbankingDetails.style.display = this.value === "netbanking" ? "block" : "none";
+                });
+            });
+
+            document.getElementById("payNow").addEventListener("click", function() {
+                let selectedMethod = document.querySelector("input[name='paymentMethod']:checked");
+                
+                if (!selectedMethod) {
+                    alert("Please select a payment method.");
+                    return;
+                }
+
+                if (selectedMethod.value === "card") {
+                    let cardNumber = document.getElementById("cardNumber").value.trim();
+                    let expiryDate = document.getElementById("expiryDate").value.trim();
+                    let cvv = document.getElementById("cvv").value.trim();
+
+                    if (!/^\d{16}$/.test(cardNumber.replace(/\s/g, ""))) {
+                        alert("Invalid card number. Please enter a 16-digit number.");
+                        return;
+                    }
+                    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
+                        alert("Invalid expiry date. Use MM/YY format.");
+                        return;
+                    }
+                    if (!/^\d{3}$/.test(cvv)) {
+                        alert("Invalid CVV. Please enter a 3-digit number.");
+                        return;
+                    }
+                } 
+                else if (selectedMethod.value === "upi") {
+                    let upiId = document.getElementById("upiId").value.trim();
+                    if (!/^\w+@\w+$/.test(upiId)) {
+                        alert("Invalid UPI ID. Please enter a valid UPI ID.");
+                        return;
+                    }
+                } 
+                else if (selectedMethod.value === "netbanking") {
+                    let bankAccNumber = document.getElementById("bankAccNumber").value.trim();
+                    if (!/^\d{10,16}$/.test(bankAccNumber)) {
+                        alert("Invalid bank account number. Please enter a valid number.");
+                        return;
+                    }
+                }
+
+                document.getElementById("successMessage").style.display = "block";
+                setTimeout(() => {
+                    alert("Payment Successful! Redirecting to confirmation page...");
+                    sessionStorage.clear();
+                    window.location.href = "confirm.html";
+                }, 2000);
+            });
+
+            document.getElementById("cancelPayment").addEventListener("click", function() {
+                window.location.href = "movieSelect.html";
+            });
+        });
+    </script>
+</body>
+</html>

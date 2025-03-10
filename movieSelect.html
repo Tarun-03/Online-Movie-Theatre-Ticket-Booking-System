@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Booking - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            background: url(Images/main-bg.webp) no-repeat center center fixed;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+        background-color: gold;
+        padding: 15px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: black;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+        font-size: 22px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .logo span {
+        font-family: "Courier New", Courier, monospace;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 40px; 
+    }
+    .nav-links a {
+        color: black;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 8px 15px;
+        transition: 0.3s ease-in-out;
+        border-radius: 5px;
+    }
+    .nav-links a:hover {
+        background: black;
+        color: gold;
+    }
+
+    .profile-btn {
+        padding: 10px 15px;
+        background: black;
+        color: gold;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .profile-btn:hover {
+        background: gold;
+        color: black;
+    }
+        .search-bar {
+            
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar input {
+            background-color: rgba(0, 0, 0, 0.5) ;
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid black;
+            color: grey;
+        }
+        .search-bar input:focus{
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 200px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            color: gold;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar label {
+            display: block;
+            margin: 5px 0;
+        }
+        .movie-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding-left: 20px;
+        }
+        .movie-card {
+            background: rgba(0, 0, 0, 0.5);
+            color: gold;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: block;
+            border-radius: 10px;
+        }
+        .movie-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .movie-card h3 {
+            margin: 10px 0 5px;
+            font-size: 18px;
+        }
+        .movie-card p {
+            color: white;
+            font-size: 14px;
+        }
+        .book-button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: gold;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .book-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: gold;
+        }
+        .profile-btn {
+            background: black;
+            color: gold;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: gold;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 250px;
+        }
+        .popup button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .popup .view-profile {
+            background: black;
+            color: gold;
+        }
+        .popup .logout {
+            background: #ff4d4d;
+            color: black;
+        }
+        .popup .close-btn {
+            background: gray;
+            color: black;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar"> 
+        <div class="logo">🎬 <span>Movie Ticket Booking</span></div>
+        <div class="nav-links">
+            <a href="movieSelect.html">Home</a>
+            <a href="movieSelect.html">Movies</a>
+            <a href="theatres.html">Theatres</a>
+            <a href="profile.html">Orders</a>
+        </div>
+        <button class="profile-btn" id="profileBtn">👤 Profile</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h3>Profile Options</h3>
+        <button class="view-profile" onclick="viewProfile()">View Profile</button>
+        <button class="logout" onclick="logout()">Log Out</button>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+    
+    <div class="search-bar">
+        <input type="text" placeholder="Search movies...">
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <div class="filter-group">
+                <h4>Languages</h4>
+                <label><input type="radio" name="language" value="all" checked onclick="filterMovies()"> All</label>
+            <label><input type="radio" name="language" value="english" onclick="filterMovies()"> English</label>
+            <label><input type="radio" name="language" value="hindi" onclick="filterMovies()"> Hindi</label>
+            <label><input type="radio" name="language" value="tamil" onclick="filterMovies()"> Tamil</label>
+            <label><input type="radio" name="language" value="malayalam" onclick="filterMovies()"> Malayalam</label>
+            </div>
+            <div class="filter-group">
+                <h4>Format</h4>
+                <label><input type="radio" name="format" value="all" checked> All</label>
+                <label><input type="radio" name="format" value="2d"> 2D</label>
+                <label><input type="radio" name="format" value="3d"> 3D</label>
+            </div>
+            <div class="filter-group">
+                <h4>Genres</h4>
+                <label><input type="checkbox" name="genre" value="drama"> Drama</label>
+                <label><input type="checkbox" name="genre" value="romance"> Romance</label>
+                <label><input type="checkbox" name="genre" value="comedy"> Comedy</label>
+                <label><input type="checkbox" name="genre" value="action"> Action</label>
+                <label><input type="checkbox" name="genre" value="family"> Family</label>
+                <label><input type="checkbox" name="genre" value="thriller"> Thriller</label>
+                <label><input type="checkbox" name="genre" value="sci-fi"> Sci-Fi</label>
+            </div>
+        </div>
+        
+        <div class="movie-grid">
+            <div class="movie-card" onclick="movie1Details()"  data-language="tamil">
+                <img src="Images/dragon.jpg" alt="Dragon">
+                <h3>Dragon</h3>
+                <p>UA16+ • Tamil</p>
+                <button class="book-button" onclick="movie1Details()">BOOK TICKET</button>
+            </div>
+            <div class="movie-card" onclick="movie2Details()" data-language="tamil">
+                <img src="Images/nila.jpeg" alt="Nila">
+                <h3>Nilavuku Enmel Ennadi Kobam</h3>
+                <p>UA13+ • Tamil</p>
+                <button class="book-button" onclick="movie2Details()">BOOK TICKET</button>
+            </div>
+            <div class="movie-card" onclick="movie3Details()" data-language="tamil">
+                <img src="Images/fire.jpeg" alt="Movie 3">
+                <h3>Fire</h3>
+                <p>A • Tamil</p>
+                <button class="book-button" onclick="movie3Details()" data-language="tamil">BOOK TICKET</button>
+            </div>
+            <div class="movie-card" onclick="movie4Details()" data-language="tamil">
+                <img src="Images/kudumbasthan.jpeg" alt="Movie 4">
+                <h3>Kudumbasthan</h3>
+                <p>U • Tamil</p>
+                <button class="book-button" onclick="movie4Details()">BOOK TICKET</button>
+            </div>
+            <div class="movie-card" onclick="movie5Details()" data-language="hindi">
+                <img src="Images/chhaava.jpeg" alt="Movie 5">
+                <h3>Chhaava</h3>
+                <p>UA16+ • Hindi</p>
+                <button class="book-button" onclick="movie5Details()">BOOK TICKET</button>
+            </div>
+            <div class="movie-card" onclick="movie6Details()" data-language="tamil">
+                <img src="Images/vidaamuyarchi.jpeg" alt="Movie 6">
+                <h3>Vidaamuyarchi</h3>
+                <p>UA16+ • Tamil</p>
+                <button class="book-button" onclick="movie6Details()">BOOK TICKET</button>
+            </div>
+            <div class="movie-card" onclick="movie7Details()" data-language="malayalam">
+                <img src="Images/ood.jpeg" alt="Movie 7">
+                <h3>Officer On Duty</h3>
+                <p>UA16+ • Malayalam</p>
+                <button class="book-button" onclick="movie7Details()">BOOK TICKET</button>
+            </div>
+            <div class="movie-card" onclick="movie8Details()" data-language="english">
+                <img src="Images/captain.jpeg" alt="Movie 8">
+                <h3>Captain America</h3>
+                <p>UA16+ • English</p>
+                <button class="book-button" onclick="movie8Details()">BOOK TICKET</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+        const profileBtn = document.getElementById("profileBtn");
+        const popup = document.getElementById("popup");
+        const overlay = document.getElementById("overlay");
+
+        profileBtn.addEventListener("click", function() {
+            popup.style.display = "block";
+            overlay.style.display = "block";
+        });
+
+        function closePopup() {
+            popup.style.display = "none";
+            overlay.style.display = "none";
+        }
+
+        function viewProfile() {
+            window.location.href = "profile.html";
+        }
+
+        function logout() {
+            window.location.href = "login.html";
+        }
+
+    function movie1Details() {
+        window.location.href = "dragonDetails.html?movie=Dragon";
+    }
+    function movie2Details() {
+        window.location.href = "nilaDetails.html?movie=Dragon";
+    }
+    function movie3Details() {
+        window.location.href = "fireDetails.html?movie=Dragon";
+    }
+    function movie4Details() {
+        window.location.href = "kuduDetails.html?movie=Dragon";
+    }
+    function movie5Details() {
+        window.location.href = "chhaavaDetails.html?movie=Dragon";
+    }
+    function movie6Details() {
+        window.location.href = "vidaDetails.html?movie=Dragon";
+    }
+    function movie7Details() {
+        window.location.href = "oodDetails.html?movie=Dragon";
+    }
+    function movie8Details() {
+        window.location.href = "captainDetails.html?movie=Dragon";
+    }
+    // Sidebar Codes
+    function filterMovies() {
+            const selectedLanguage = document.querySelector('input[name="language"]:checked').value;
+            const movies = document.querySelectorAll('.movie-card');
+            
+            movies.forEach(movie => {
+                if (selectedLanguage === 'all' || movie.dataset.language === selectedLanguage) {
+                    movie.style.display = 'block';
+                } else {
+                    movie.style.display = 'none';
+                }
+            });
+        }
+</script>
+</html>

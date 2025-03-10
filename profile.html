@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(Images/main-bg.webp) no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-container {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            background: gold;
+            color: black;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .booking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255, 215, 0, 0.5);
+        }
+        .booking-table th, .booking-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid gold;
+        }
+        .cancel-button {
+            padding: 8px 12px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cancel-button:hover {
+            background: darkred;
+        }
+        .go-back {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: gold;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+        }
+        .go-back:hover {
+            background: black;
+            color: gold;
+        }
+        .footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="header">
+            <h2>User Profile</h2>
+        </div>
+        <p><strong>Name:</strong> User</p>
+        <p><strong>Username:</strong> user123</p>
+        <p><strong>Phone Number:</strong> 1234567890</p>
+        
+        <h3>Your Bookings</h3>
+        <table class="booking-table">
+            <tr>
+                <th>Movie</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Seat</th>
+                <th>Price</th>
+                <th>Cancel</th>
+            </tr>
+            <tr>
+                <td>Dragon</td>
+                <td>01-03-2025</td>
+                <td>3:05 PM</td>
+                <td>A5</td>
+                <td>200₹</td>
+                <td><button class="cancel-button" onclick="cancelBooking(this, 200)">Cancel</button></td>
+            </tr>
+        </table>
+
+        <!-- Go Back Button -->
+        <a href="movieSelect.html" class="go-back">Go Back</a>
+    </div>
+
+    <script>
+        function cancelBooking(button, price) {
+            let refundAmount = price * 0.8; // Deduct 20% cancellation fee
+            if (confirm(`Are you sure you want to cancel? Refund Amount: ₹${refundAmount.toFixed(2)}`)) {
+                let row = button.parentElement.parentElement;
+                row.remove();
+                alert("Booking Cancelled! Refund Processed: ₹" + refundAmount.toFixed(2));
+            }
+        }
+    </script>
+
+    <div class="footer">
+        <p>&copy; 2025 Movie Booking System</p>
+    </div>
+</body>
+</html>

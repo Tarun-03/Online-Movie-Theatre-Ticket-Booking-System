@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Booking - Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url(Images/login-bg.webp) no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .navbar {
+            background-color: gold;
+            padding: 15px 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            width: 30%;
+            color: gold;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        button {
+            background-color: gold;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+
+        p {
+            margin-top: 15px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Register</h2>
+        <form id="registrationForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required pattern="^[A-Z][a-z]+([-' ][A-Z][a-z]+)*$"
+                   title="Each word must start with an uppercase letter, followed by lowercase letters. Spaces, hyphens, and apostrophes are allowed.">
+    
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" required pattern="^[0-9]{10}$" title="Must be exactly 10 digits">
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" required pattern="^[a-zA-Z0-9_]+$"
+                   title="Can contain only alphabets, numbers, and underscores">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" required 
+                   pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                   title="Must be at least 8 characters long, contain at least one letter, one number, and one special character">
+            
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+    
+    
+
+    <script>
+        document.getElementById('name').addEventListener('input', function() {
+        this.value = this.value.replace(/\b[a-z]/g, function(char) {
+            return char.toUpperCase();
+        });
+    });
+
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        
+        let form = this;
+        if (!form.checkValidity()) {
+            alert("Please correct the errors in the form before submitting.");
+            return; 
+        }
+
+        const userId = 'USER' + Math.floor(Math.random() * 10000);
+        alert('Registration Successful! Your User ID: ' + userId);
+
+        window.location.href = 'login.html';
+    });
+    </script>
+</body>
+</html>

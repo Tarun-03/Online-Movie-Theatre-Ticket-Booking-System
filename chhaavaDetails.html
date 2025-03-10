@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details - Dragon</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url(Images/main-bg.webp) no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navbar {
+            background-color: gold;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .nav-links a {
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+        }
+        .nav-links a:hover {
+            background: black;
+            color: gold;
+        }
+        .profile-btn {
+            background: black;
+            color: gold;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .profile-btn:hover {
+            background: gold;
+            color: black;
+        }
+        .container {
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        .movie-info {
+            max-width: 55%;
+            color: white;
+        }
+        .movie-info h1 {
+            font-size: 42px;
+            color: gold;
+        }
+        .trailer-button, .tabs button, .like-dislike button {
+            background-color: gold;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 10px 15px;
+            border: none;
+            margin: 5px;
+        }
+        .trailer-button:hover, .tabs button:hover, .like-dislike button:hover {
+            background-color: black;
+            color: white;
+        }
+        .movie-poster img {
+            width: 250px;
+            border-radius: 15px;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: black;
+            color: gold;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar"> 
+        <div class="logo">🎬 <span>Movie Ticket Booking</span></div>
+        <div class="nav-links">
+            <a href="movieSelect.html">Home</a>
+            <a href="movieSelect.html">Movies</a>
+            <a href="theatres.html">Theatres</a>
+            <a href="profile.html">Orders</a>
+        </div>
+        <!-- <button class="profile-btn">👤 Profile</button> -->
+    </div>
+    <div class="container">
+        <div class="movie-info">
+            <h1>Chhaava</h1>
+            <p>UA16+ • 2 hrs 41 mins • Drama, Thriller • Hindi</p>
+            <button class="trailer-button" onclick="watchTrailer()">▶ Watch Trailer</button>
+            <div class="tabs">
+                <button onclick="redirectToTheatres()">Show Theatres</button>
+                <!-- Dont initiate now without DB -->
+                <!-- <button>Reviews & More</button> -->
+            </div>
+            <div class="like-dislike">
+                <span>❤️ 96% Liked this movie</span><br>
+                <button onclick="showPopup('liked')">🤍 Like</button>
+                <button onclick="showPopup('disliked')">💔 Dislike</button>
+            </div>
+            <div class="location">📍 Chennai</div>
+        </div>
+        <div class="movie-poster">
+            <img src="Images/chhaava.jpeg" alt="Nila Movie Poster">
+        </div>
+    </div>
+    <div id="popup" class="popup">
+        <p id="popup-message"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+    <script>
+        function watchTrailer() {
+            window.open("https://youtu.be/77vRyWNqZjM?si=M6mkIOMYP5b19QDD", "_blank");
+        }
+        function showPopup(action) {
+            document.getElementById("popup-message").innerText = `You have ${action} this movie.`;
+            document.getElementById("popup").style.display = "block";
+        }
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+        function redirectToTheatres() {
+            window.location.href = "theatres.html?location=Chennai";
+        }
+    </script>
+</body>
+</html>

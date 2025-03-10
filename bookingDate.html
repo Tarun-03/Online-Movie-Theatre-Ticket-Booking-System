@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let selectedDate = sessionStorage.getItem("selectedDate");
+
+            if (!selectedDate) {
+                alert("No date selected. Redirecting to theatres page.");
+                window.location.href = "theatres.html";
+            } else {
+                window.location.href = "booking.html?date=" + selectedDate;
+            }
+        });
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            background: url(Images/main-bg.webp) no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0,0,0,0.5);
+            max-width: 600px;
+            color: gold;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: gold;
+        }
+        p, li {
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .button {
+            flex: 1;
+            margin: 5px;
+            padding: 12px;
+            font-size: 18px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .agree-button {
+            background: rgba(255,215,0,0.6);
+            color: black;
+        }
+        .agree-button:hover {
+            background: rgba(255,215,0,1);
+        }
+        .disagree-button {
+            background: rgba(0,0,0,0.6);
+            color: gold;
+        }
+        .disagree-button:hover {
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Terms & Conditions</h2>
+        <p><strong>This cinema is now CASHLESS.</strong> Pay for your booking using digital payment methods like Credit/Debit Card & UPI. It's fast, secure & seamless.</p>
+        <ul>
+            <li>Seat layout shown is for representation purposes only and may vary.</li>
+            <li>Tickets are compulsory for children aged 3 years & above.</li>
+            <li>Patrons below 18 years cannot be admitted for movies certified `A`.</li>
+            <li>For 3D movies, ticket price includes 3D glasses.</li>
+            <li>Outside food & beverages are not allowed inside the cinema.</li>
+            <li>Items like bags, eatables, helmets, handbags are strictly prohibited inside the theatre.</li>
+            <li>Prohibited items include laptops, cameras, knives, lighters, firearms, and any inflammable objects.</li>
+            <li>Patrons under the influence of alcohol or drugs will be denied entry.</li>
+            <li>Lost or misplaced tickets cannot be reissued.</li>
+            <li>Tickets once purchased can be cancelled before start of movie time with 20% deduction fee.</li>
+            <li>Tickets once purchased are non-exchangeable.</li>
+            <li>Decisions taken by the cinema management are final and binding.</li>
+            <li>Ticket prices are subject to change without notice.</li>
+            <li>Recording the film using mobile or camera is strictly prohibited and punishable.</li>
+        </ul>
+        
+        <div class="button-container">
+            <button class="button disagree-button" onclick="goTo('movieSelect.html')">Disagree</button>
+            <button class="button agree-button" onclick="goTo('payment.html')">Agree</button>
+        </div>
+    </div>
+
+    <script>
+        function goTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>
